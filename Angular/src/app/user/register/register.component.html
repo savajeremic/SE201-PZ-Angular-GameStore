@@ -1,0 +1,80 @@
+<!-- Modal Register -->
+<div id="registerModal" class="modal fade" role="dialog">
+  <div class="login-box">
+    <form class="form form-login" role="form" (ngSubmit)="f.form.valid && onRegister()" #f="ngForm" novalidate>
+      <h2 class="form-title">log in</h2>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" name="email" class="field-input" [(ngModel)]="model.email" #mail="ngModel" required>
+        <div *ngIf="f.submitted && !email.valid" class="help-block">E-Mail mora biti popunjen.</div>
+      </div>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="username" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required minlength="5"/>
+        <div *ngIf="f.submitted && !username.valid" class="help-block">
+              Korisničko ime mora da sadrži minimum 6 karaktera.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required minlength="5"/>
+        <div *ngIf="f.submitted && !password.valid" class="help-block">
+              Lozinka mora da sadrži minimum 6 karaktera.
+        </div>
+      </div>
+      <div class="form-group">
+        <button (click)="onRegister()" class="gd-btn menu-btn-reg form-btn">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--<div class="login-box">
+  <form class="form form-login" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+    <h2 class="form-title">Register</h2>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+      <label for="email">Email:</label>
+      <input id="email" name="email" class="field-input" [(ngModel)]="model.email" #mail="ngModel" required>
+      <div *ngIf="f.submitted && !email.valid" class="help-block">E-Mail mora biti popunjen.</div>
+    </div>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="username" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required minlength="8"/>
+      <div *ngIf="f.submitted && !username.valid" class="help-block">
+            Korisničko ime mora da sadrži minimum 6 karaktera.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required minlength="8"/>
+      <div *ngIf="f.submitted && !password.valid" class="help-block">
+            Lozinka mora da sadrži minimum 6 karaktera.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="name">Ime:</label>
+      <input id="name" [(ngModel)]="model.name" name="name" type="text" class="field-input">
+    </div>
+    <div class="form-group">
+      <label for="surname">Prezime:</label>
+      <input id="surname" [(ngModel)]="model.surname" name="surname" type="text" class="field-input" formControlName='surname'>
+    </div>
+    <div class="form-group">
+      <label for="avatar">avatar:</label>
+      <input id="avatar" [(ngModel)]="model.avatar" name="avatar" type="text" class="field-input" formControlName='avatar'>
+    </div>
+    <div class="form-group">
+      <label for="birth_date">birth_date:</label>
+      <input id="birth_date" [(ngModel)]="model.birth_date" name="birth_date" type="date" class="field-input" formControlName='birth_date'>
+    </div>
+    <div class="form-group">
+      <label for="country">country:</label>
+      <input id="country" [(ngModel)]="model.country" name="country" type="text" class="field-input" formControlName='country'>
+    </div>
+    <div class="form-group">
+      <button [disabled]="registered" class="gd-btn menu-btn-reg form-btn">Register</button>
+    </div>
+  </form>
+</div>-->

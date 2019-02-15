@@ -1,0 +1,53 @@
+<div class="container">
+	<div class="row">
+		<section class="content">
+			<h1>Games</h1>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+            <div class="container search">
+              <form class="search-form">
+                <div class="form-group has-feedback" style="float: left !important;">
+                  <label for="search" class="sr-only">Search</label>
+                  <input type="text" class="form-control" name="search" id="search" placeholder="search" [(ngModel)]="name">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+              </form>
+            </div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									<tr *ngFor="let game of games | SearchPipe:name">
+										<td>
+											<div class="media">
+												<a class="pull-left">
+													<img src="{{game.cover}}" class="media-photo" (click)="viewGame(game.id)">
+												</a>
+												<div class="media-body">
+													<span class="media-meta pull-right">
+                            <button class="gd-btn buy-btn" *ngIf="game.flag_id != 1 && game.flag_id != 2" (click)="game.flag_id == 1; addToCart(game.id)">
+                              {{game.price}}.00$</button>
+                            <button class="gd-btn buy-btn" *ngIf="game.flag_id == 1"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                            <button class="gd-btn buy-btn" *ngIf="game.flag_id == 2">owned</button>
+                          </span>
+													<h4 class="title">
+														{{game.name}}
+														<span class="pull-right">
+                              <i class="fa fa-heart wishlist" aria-hidden="true"></i>
+                              <p>Add to wishlist</p>
+                            </span>
+													</h4>
+													<p class="summary">{{game.game_genre}}</p>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

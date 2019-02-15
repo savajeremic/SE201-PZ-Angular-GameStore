@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-4 col-md-offset-5">
+        <a (click)="change = !change">Edit Profile</a>
+        <a (click)="logout()">Logout</a>
+        <br>
+      </div>
+      <div class="col-lg-6 col-lg-offset-3" *ngIf="user">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{user.username}}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3" align="center"> <img src="{{user.avatar}}" class="img-circle img-responsive"> </div>
+                <div class=" col-md-9 col-lg-9">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Username:</td>
+                        <td>{{user.username}}</td>
+                      </tr>
+                      <tr>
+                        <td>Name:</td>
+                        <td>{{user.name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Surname:</td>
+                        <td>{{user.surname}}</td>
+                      </tr>
+                      <tr>
+                        <td>Birthday:</td>
+                        <td>{{user.birth_date}}</td>
+                      </tr>
+                      <tr>
+                        <td>Country</td>
+                        <td>{{user.country}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        <div class="panel-footer">
+          <a type="button" class="btn btn-primary" routerLink="/usergames">Your Games</a>
+          <span class="pull-right">
+            <a type="button" class="btn btn-primary" routerLink="/cart">Your Cart</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Update-->
+<div *ngIf="change" style="padding-left: 35%;">
+  <form class="form form-login" role="form" [formGroup]="updateProfileForm">
+    <div class="form-group">
+      <label for="name">Enter name:</label>
+      <input name="name" type="text" class="field-input" formControlName='name'>
+    </div>
+    <div class="form-group">
+      <label for="surname">Enter surname:</label>
+      <input name="surname" type="text" class="field-input" formControlName='surname'>
+    </div>
+    <div class="form-group">
+      <label for="avatar">Enter url for new Avatar:</label>
+      <input name="avatar" type="text" class="field-input" formControlName='avatar'>
+    </div>
+    <div class="form-group">
+      <label for="birth_date">Enter birth date:</label>
+      <input name="birth_date" type="date" class="field-input" formControlName='birth_date'>
+    </div>
+    <div class="form-group">
+      <label for="country">Enter country:</label>
+      <input name="country" type="text" class="field-input" formControlName='country'>
+    </div>
+    <div class="form-group">
+      <button (click)="updateProfile()" class="gd-btn menu-btn-reg form-btn">Change</button>
+      <p *ngIf="success" class="alert alert-success">Successfully updated game!</p>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,54 @@
+<div class="container">
+	<div class="row">
+		<section class="content">
+			<h1>All Games</h1>
+			<div class="col-lg-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+            <div class="container search">
+              <form class="search-form">
+                <div class="form-group has-feedback" style="float: left !important;">
+                  <label for="search" class="sr-only">Search</label>
+                  <input type="text" class="form-control" name="search" id="search" placeholder="search" [(ngModel)]="name">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+              </form>
+            </div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+									<tr *ngFor="let game of games | SearchPipe:name">
+										<td>
+											<div class="media">
+												<a class="pull-left">
+													<img src="{{game.cover}}" class="media-photo" (click)="viewGame(game.id)">
+												</a>
+												<div class="media-body">
+													<span class="media-meta pull-right" *ngIf="token">
+                              <button class="gd-btn buy-btn" (click)="addToCart(game.id)">
+																{{game.price}}.00$</button>
+                          </span>
+													<span class="media-meta pull-right" *ngIf="!token">
+                              <button class="gd-btn buy-btn">{{game.price}}.00$</button>
+                          </span>
+													<h4 class="title">
+														{{game.name}}
+														<span class="pull-right">
+                              <i (click)="addToWishlist(game.id)" class="fa fa-heart wishlist" aria-hidden="true"></i>
+                              <p class="wishlist-text">Add to wishlist</p>
+                            </span>
+													</h4>
+													<p class="summary">{{game.game_genre}}</p>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,148 @@
+<app-login></app-login>
+<app-register></app-register>
+<div class="img-background"></div>
+<nav class="navbar navbar menu"><!--Bez navbar-inverse == Transparentan Meni-->
+  <div class="containter-fluid menu_container">
+    <div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+          <a class="navbar-brand" routerLink="/">GameDream</a>
+          <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Store<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+              <li><a routerLink="/">Home</a></li>
+							<li role="separator" class="divider"></li>
+							<li [routerLink]="['/allgames']"> <a [routerLink]="['/allgames']">All Games</a></li>
+              <li class="dropdown-submenu" *ngFor="let genre of genres">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" [routerLink]="['/genregames', genre.id]">
+                  {{genre.name}}<i class="fa fa-angle-double-right menu-arrow" aria-hidden="true"></i>
+                </a>
+              </li>
+						</ul>
+					</li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li routerLink="/aboutus"><a routerLink="/aboutus">About us</a></li>
+              <li role="separator" class="divider"></li>
+              <li routerLink="/contact"><a routerLink="/contact">Join Us</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+              <li routerLink="/contact"><a routerLink="/contact">Report Issues</a></li>
+              <li routerLink="/aboutus"><a routerLink="/aboutus">GameDream</a></li>
+							<li role="separator" class="divider"></li>
+							<li routerLink="/aboutus"><a routerLink="/aboutus">Our Department</a></li>
+						</ul>
+					</li>
+
+          <li class="dropdown" *ngIf="!token">
+						<a style="color: #c6142c;" class="dropdown-toggle menu-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-log-in">
+            </span> SIGN IN<span class="caret"></span></a>
+						<ul class="dropdown-menu signin-drop">
+              <li class="signin-elements">
+                <button data-toggle="modal" data-target="#loginModal" class="gd-btn menu-btn-log">Login</button>
+                <button data-toggle="modal" data-target="#registerModal" class="gd-btn menu-btn-reg">Register</button>
+              </li>
+							<li role="separator" class="divider"></li>
+              <li><img class="signin-img" src="./assets/images/logreggames.png"></li>
+						</ul>
+					</li>
+
+          <li class="dropdown" *ngIf="token && token.type_name == 'admin'">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Work<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+              <li routerLink="/admin" routerLinkActive="active"><a routerLink="/admin">Games</a></li>
+              <li routerLink="/addgame" routerLinkActive="active"><a routerLink="/addgame">Add Game</a></li>
+              <li routerLink="/addrest" routerLinkActive="active"><a routerLink="/addrest">Add Rest of Game</a></li>
+              <li routerLink="/addgamegenre" routerLinkActive="active"><a routerLink="/addgamegenre">Add Game Genre</a></li>
+						</ul>
+					</li>
+
+          <li class="dropdown" *ngIf="token">
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-log-in">
+            </span> {{token.username}}<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+              <li class="menu-header_label">Your account</li>
+              <li routerLink="/user" routerLinkActive="active"><a class="menu-account_user-name" routerLink="/user">{{token.username}}</a></li>
+              <li role="separator" class="divider"></li>
+              <li routerLink="/usergames"><a routerLink="/usergames">Your Games</a></li>
+              <li routerLink="/wishlist"><a routerLink="/wishlist">WishList</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a (click)="logout()">Logout</a></li>
+						</ul>
+					</li>
+          <li class="dropdown menu_tray">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span *ngIf="token" class="glyphicon glyphicon-shopping-cart" routerLink="/cart"></span>
+              <span *ngIf="!token" class="glyphicon glyphicon-shopping-cart"></span>
+            </a>
+            <ul class="dropdown-menu cart-drop">
+              <li class="menu-cart-empty" *ngIf="!token">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <p class="menu-cart-empty-header">Your Cart Is Empty</p>
+                <hr/>
+                <div>
+                  <p> Please register or log in in order to buy </p>
+                  <button data-toggle="modal" data-target="#loginModal" class="gd-btn menu-btn-log">Login</button>
+                  <button data-toggle="modal" data-target="#registerModal" class="gd-btn menu-btn-reg">Register</button>
+                </div>
+              </li>
+              <li class="menu-cart-user" *ngIf="token">
+                <div class="pre-scrollable">
+                  <div class="cart-header">
+                    <p class="items-added"><span [innerHTML]="getSum()"></span>.00$</p>
+                    <button [disabled]="success" class="gd-btn checkout-btn checkout-btn-menu" (click)="checkout()">Go to checkout</button>
+                    <p *ngIf="success" class="alert alert-success">Successfully bought games!</p>
+                    <span class="cart-menu-text"> Your shopping cart </span>
+                    <p class="items-added">{{cart.length}} items added</p>
+                  </div>
+                  <div class="media-cart" *ngFor="let game of cart">
+                    <a class="pull-left">
+                      <img src="{{game.cover}}" class="cart-img" (click)="viewGame(game.id)">
+                    </a>
+                    <div class="media-body">
+                      <span class="media-meta pull-right">
+                          <p class="cart-price">{{game.price}}.00$</p>
+                      </span>
+                      <div class="pull-left">
+                        <h4 class="title trunc-name">{{game.name}}</h4>
+                        <p class="remove-cart-text" (click)="removeFromCart(game.id)">Remove</p>
+                      </div>
+                    </div>
+                    <hr class="menu-break"/>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+				</ul>
+        <div class="container search">
+          <form class="search-form">
+            <div class="form-group has-feedback">
+              <label for="search" class="sr-only">Search</label>
+              <input type="text" class="form-control" name="search" id="search" placeholder="search" [(ngModel)]="name">
+              <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+          </form>
+        </div>
+      </div>
+	 </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="navbar navbar-fixed-bottom" style="border-top:1px solid #cecece;">
+  <div class="col-md-4 col-md-push-4">
+    <ul class="nav nav-pills nav-justified">
+      <li><a routerLink="/aboutus">© 2017 Vasa & Co</a></li>
+      <li><a routerLink="/aboutus">About Us</a></li>
+      <li><a routerLink="/terms">Terms of Service</a></li>
+    </ul>
+  </div>
+</footer>

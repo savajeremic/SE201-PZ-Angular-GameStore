@@ -1,0 +1,27 @@
+<form role="form" [formGroup]="addRestForm">
+  <div class="form-group">
+    <label for="game_id">Games:</label>
+    <select formControlName='game_id' class="form-control" ng-selected="Yes">
+      <option *ngFor="let game of games" [value]="game.id">{{game.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="company_id">Companies:</label>
+    <select name="company_id[]" multiple="multiple" formControlName='company_id' class="form-control" ng-selected="Yes">
+      <option *ngFor="let company of companies" [value]="company.id">{{company.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="genre_id">Genre:</label>
+    <select name="genre_id[]" multiple="multiple" formControlName='genre_id' class="form-control" ng-selected="Yes">
+      <option *ngFor="let genre of genres" [value]="genre.id">{{genre.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="language_id">Language:</label>
+    <select name="language_id[]" multiple="multiple" formControlName='language_id' class="form-control" ng-selected="Yes">
+      <option *ngFor="let language of languages" [value]="language.id">{{language.name}}</option>
+    </select>
+  </div>
+  <button (click)="onAddRest()" class="btn btn-default">Add</button>
+</form>

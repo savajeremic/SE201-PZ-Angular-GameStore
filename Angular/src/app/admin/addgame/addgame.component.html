@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form role="form" [formGroup]="addGameForm">
+      <div class="form-group">
+        <label for="name">Game name:</label>
+        <input type="text" class="form-control" formControlName='name'>
+      </div>
+      <div class="form-group">
+        <label for="description">Game Description: </label>
+        <input type="text" name="description" class="form-control" formControlName='description'>
+      </div>
+      <div class="form-group">
+        <label for="votes">Votes: </label>
+        <input type="text" name="votes" class="form-control" formControlName='votes'>
+      </div>
+      <div class="form-group">
+        <label for="cover">Insert game image: </label>
+        <input type="text" name="cover" class="form-control" formControlName='cover'>
+      </div>
+      <div class="form-group">
+        <label for="version">Game Version: </label>
+        <input type="text" name="version" class="form-control" formControlName='version'>
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating: </label>
+        <input type="text" name="rating" class="form-control" formControlName='rating'>
+      </div>
+      <div class="form-group">
+        <label for="release_date">Game Release: </label>
+        <input type="date" name="release_date" class="form-control" formControlName='release_date'>
+      </div>
+      <div class="form-group">
+        <label for="size">Game Size: </label>
+        <input type="text" name="size" class="form-control" formControlName='size'>
+      </div>
+      <div class="form-group">
+        <label for="price">Price: </label>
+        <input type="text" name="price" class="form-control" formControlName='price'>
+      </div>
+      <div class="form-group">
+        <button (click)="onAddGame()" class="btn btn-default">Add Game</button>
+        <p *ngIf="success" class="alert alert-success">Successfully added game!</p>
+      </div>
+    </form>
+  </div>
+</div>
